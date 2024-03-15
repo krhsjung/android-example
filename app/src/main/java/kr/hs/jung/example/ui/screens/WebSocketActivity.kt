@@ -1,18 +1,14 @@
-package kr.hs.jung.example
+package kr.hs.jung.example.ui.screens
 
-import android.Manifest
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -20,17 +16,16 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import kr.hs.jung.example.ui.screens.WebSocketActivity
 import kr.hs.jung.example.ui.theme.ExampleApplicationTheme
+import kr.hs.jung.example.utils.WebSocketClient
 
-class MainActivity : ComponentActivity() {
+class WebSocketActivity: ComponentActivity() {
+    private val webSocketClient = WebSocketClient("http://172.22.7.6:8443/helloworld")
+
     override fun onCreate(savedInstanceState: Bundle?) {
+        Log.d("WebSocketActivity", "onCreate")
         super.onCreate(savedInstanceState)
-        requestPermissions(arrayOf(Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO), 0)
-
         setContent {
             ExampleApplicationTheme {
                 // A surface container using the 'background' color from the theme
@@ -38,7 +33,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    ExampleButtons(this)
+                    WebSocketTestButtons(webSocketClient)
                 }
             }
         }
@@ -46,7 +41,7 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun ExampleButtons(context: Context) {
+fun WebSocketTestButtons(webSocketClient: WebSocketClient) {
     Column(
         modifier = Modifier.padding(8.dp).fillMaxSize(),
         verticalArrangement = Arrangement.Center,
@@ -54,19 +49,21 @@ fun ExampleButtons(context: Context) {
     ) {
         Button(
             onClick = {
-                context.startActivity(Intent(context, WebSocketActivity::class.java))
+                Log.d("WebSocketActivity", "Connect Button")
+                webSocketClient.connect()
             },
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text(text = "WebSocket Button")
+            Text(text = "Connect to server")
         }
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    ExampleApplicationTheme {
-//        ExampleButtons(context = this)
+        Button(
+            onClick = {
+                Log.d("WebSocketActivity", "Disconnect Button")
+                webSocketClient.disconnect()
+            },
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Text(text = "Disconnect to server")
+        }
     }
 }

@@ -4,6 +4,7 @@ core-ktx = "1.12.0"
 lifecycle-runtime-ktx = "2.7.0"
 activity-compose = "1.8.2"
 compose-bom = "2023.08.00"
+okhttp-bom = "4.12.0"
 
 #plugins
 android-application = "8.2.2"
@@ -11,6 +12,7 @@ jetbrains-kotlin-android = "1.9.0"
 
 
 [libraries]
+# Basic android
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx"}
 androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycle-runtime-ktx"}
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activity-compose"}
@@ -20,6 +22,10 @@ androidx-compose-ui-graphics = { group = "androidx.compose.ui", name = "ui-graph
 androidx-compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
 androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3" }
 
+#okhttp
+okhttp-bom = { group = "com.squareup.okhttp3", name = "okhttp-bom", version.ref = "okhttp-bom" }
+okhttp = { group = "com.squareup.okhttp3", name = "okhttp" }
+okhttp-logging-interceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor"}
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "android-application"}
