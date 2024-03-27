@@ -61,9 +61,16 @@ dependencies {
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.material3)
 
-    //okhttp
+    // okhttp
     implementation(platform(libs.okhttp.bom))
     implementation(libs.okhttp)
     implementation(libs.okhttp.logging.interceptor)
+
+    // getstream - WebRTC
+    implementation(libs.getstream.webrtc.android)
+    implementation(libs.getstream.webrtc.android.ui)
+    implementation(libs.getstream.webrtc.android.compose)
+    implementation(libs.getstream.webrtc.android.ktx)
+    implementation(libs.getstream.log.android)
 
 }
